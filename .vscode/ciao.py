@@ -1,9 +1,9 @@
 import numpy
 import ciao_contrib.runtool as rt
 from ciao_contrib.runtool import dmlist
-print("hello world and people")
+print("hello world")
 #dmlist('ngc1333.fits', 'blocks')
-
+dmlist('csc2.fits', 'blocks')
 
 import matplotlib.pyplot as plt
 import numpy as np
