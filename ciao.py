@@ -67,7 +67,8 @@ decGalaxies = galaxiesFull["DEC(deg)"] #decllination
 for i in range(np.size(raGalaxies)):
     ra = raGalaxies[i]
     dec = decGalaxies[i]
-
+    sr = search_chandra_archive(ra, dec, size=0.3) #size is how many degrees away
+    
 #help(rt)
 
 #help(get_source())
