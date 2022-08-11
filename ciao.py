@@ -11,10 +11,10 @@ import astropy
 import pyvo as vo
 
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  
 import pandas as pd
 
-import sherpa
+import sherpa 
 
 ra =  8.815
 dec = -43.566
@@ -68,7 +68,7 @@ for i in range(np.size(raGalaxies)):
     ra = raGalaxies[i]
     dec = decGalaxies[i]
     sr = search_chandra_archive(ra, dec, size=0.3) #size is how many degrees away
-    
+
 #help(rt)
 
 #help(get_source())

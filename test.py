@@ -48,8 +48,8 @@ galaxiesFull = pd.read_csv("galaxies_full.csv", sep = ',')
 raGalaxies = galaxiesFull["RA(deg)"] #right ascention
 decGalaxies = galaxiesFull["DEC(deg)"] #decllination
 
-with open(r'csc1deg.txt', 'w') as fp:
-        fp.write("Num\tObsID\t\t\t\t\t\tTarget Name\t\t\t\t\tMy RA\ t\t\t\tCSC RA\t\t\t\tMy DEC\t\t\tCSC DEC\tInstrument\n")
+with open(r'csc_1deg.txt', 'w') as fp:
+        fp.write("Num\tObsID\t\t\t\t\t\tTarget_Name\t\t\t\t\tMy_RA\t\t\t\tCSC_RA\t\t\t\tMy_DEC\t\t\tCSC_DEC\tInstrument\tObs_Date\n")
         for j in range(np.size(raGalaxies)):
             ra = raGalaxies[j]
             dec = decGalaxies[j]
@@ -60,7 +60,7 @@ with open(r'csc1deg.txt', 'w') as fp:
                 obs = get_chandra_obs(sr)
                 count = np.size(obs['obsid'])
                 for i in range(count):
-                    fp.write("%4d\t%7s\t%30s\t%12.6f\t%12.6f\t%12.6f\t%12.6f\t%8s\n" %( (j+1) ,(obs['obsid'][i]), (obs['target'][i]), (raGalaxies[j]), (obs['ra'][i]), (decGalaxies[j]), (obs['ra'][i]), (obs['instrument'][i]) ) )
+                    fp.write("%4d\t%7s\t%30s\t%12.6f\t%12.6f\t%12.6f\t%12.6f\t%12s\t%s\n" %( (j+1) ,(obs['obsid'][i]), (obs['target'][i]), (raGalaxies[j]), (obs['ra'][i]), (decGalaxies[j]), (obs['ra'][i]), (obs['instrument'][i]), (obs['obsdate'][i]) ) )
                     #print(i)
                     #print(obs['obsid'][i])
                     #print(i, (obs['obsid'][i]), (obs['target'][i]), (raGalaxies[j]), (obs['ra'][i]), (decGalaxies[j]), (obs['ra'][i]) )
@@ -83,9 +83,6 @@ print(f'Numpy: {time.time() - start} seconds')
       obsdate
       piname         last name of PI
       separation     separation of aim point from ra,dec in arcminute
-from astropy.io import fits
 
-fits_image_filename = '9548/primary/acisf09548_000N003_bpix1.fits.gz'
-with fits.open(fits_image_filename) as hdul:
-    hdul.info()
+
 """
