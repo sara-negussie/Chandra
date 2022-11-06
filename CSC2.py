@@ -8,7 +8,7 @@ from astropy.coordinates import SkyCoord
 from astropy import units as u
 
 m33 = SkyCoord.from_name('M33')
-maxrad = 1.0 * u.deg
+maxrad = 0.166667 * u.deg #this is 10 arcmin
 
 cone = vo.dal.SCSService('https://cda.cfa.harvard.edu/csc21_snapshot_scs/coneSearch')
 
