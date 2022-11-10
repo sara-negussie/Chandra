@@ -6,20 +6,19 @@ import time
 
 
 start = time.time() #start a time to see how long it takes
-
-
-galaxiesFull = pd.read_csv("mag_change.txt", delim_whitespace=True)  
+galaxiesFull = pd.read_csv("mag_change.txt", delim_whitespace=True)
 sdssRA = galaxiesFull["SDSS_RA"] #right ascention
 sdssDEC = galaxiesFull["SDSS_DEC"] #decllination
 
 
-
-csc10am= pd.read_csv("csc1degcat21_getdatacp.txt", delim_whitespace=True) 
+#first example
+csc10am= pd.read_csv("CSC21_SDSS_10arcmin_index.txt", delim_whitespace=True) 
 matches = csc10am['Num']
 cscRA  = csc10am['CSC_RA']
-cscMyRA = csc10am['My_RA']
+cscMyRA = csc10am['SDSS_RA']
 cscDEC = csc10am['CSC_DEC']
-cscMyDEC = csc10am['My_DEC']
+cscMyDEC = csc10am['SDSS_DEC']
+
 """
 fig = plt.figure(figsize =(10, 10))
 plt.title("All nearby sources")
@@ -41,7 +40,7 @@ cscDECnew = []
 angSep = []
 idx = 0
 count = 0
-for i in range(np.size(matches)):
+for i in range(np.size(cscRA)):
     num = matches[i]
     if idx == num:
         continue
@@ -61,17 +60,31 @@ for i in range(np.size(matches)):
     idx = num
         
 print("Count =", count)
+
+ # taking an input list
+uniqueNums = []
+ # taking an counter
+sum = 0
+ 
+# traversing the array
+for item in matches:
+    if item not in uniqueNums:
+        sum += 1
+        uniqueNums.append(item)
+ 
+# printing the output
+print("No of unique items are:", sum)
 #categories = np.array(len(cscMyRAnew))
 
 # use colormap
 #colormap = np.array(['r', 'g', 'b'])
 
 fig = plt.figure(figsize =(15, 10))
-plt.title("All nearby sources")
-plt.scatter(cscMyRAnew, cscMyDECnew, s = 5, c= cscDECnew, label ='sdss')
-plt.scatter(cscRAnew, cscDECnew, s = 5, c = cscDECnew, label = 'csc')
-#plt.scatter(cscMyRAnew, cscMyDECnew, s = 5, color = "b", label ='sdss')
-#plt.scatter(cscRAnew, cscDECnew, s = 5, color = "coral", label = 'csc')
+plt.title("All nearby sources--using astropy vo 10arcmin")
+#plt.scatter(cscMyRAnew, cscMyDECnew, s = 5, c= cscDECnew, label ='sdss')
+#plt.scatter(cscRAnew, cscDECnew, s = 5, c = cscDECnew, label = 'csc')
+plt.scatter(cscRAnew, cscDECnew, s = 5, color = "coral", label = 'csc')
+plt.scatter(cscMyRAnew, cscMyDECnew, s = 5, color = "b", label ='sdss')
 plt.legend()
 plt.xlabel("RA")
 plt.ylabel("DEC")
@@ -81,7 +94,7 @@ plt.grid()
 plt.show()  
 
 
-"""#histogram
+#histogram
 
 fig = plt.figure(figsize =(10, 7))
 
@@ -90,11 +103,10 @@ n, bins, patches = plt.hist(x=angSep, bins = 40, color='#0504aa',
 #plt.grid(axis='y', alpha=0.75)
 plt.xlabel('Theta in arcsec')
 plt.ylabel('Count')
-plt.title('Angular Separation')
+plt.title('Angular Separation from astropy vo 10arcmin')
 #plt.axvline(2.6, color='k', linestyle='dashed', linewidth=1)
 
 plt.show()  
 
 print("finished")
 print(f'Numpy: {time.time() - start} seconds')
-"""
