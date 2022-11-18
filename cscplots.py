@@ -12,12 +12,12 @@ sdssDEC = galaxiesFull["SDSS_DEC"] #decllination
 
 
 #first example
-csc10am= pd.read_csv("CSC21_SDSS_10arcmin_index.txt", delim_whitespace=True) 
+csc10am= pd.read_csv("csc10arcmin.txt", delim_whitespace=True) 
 matches = csc10am['Num']
 cscRA  = csc10am['CSC_RA']
-cscMyRA = csc10am['SDSS_RA']
+cscMyRA = csc10am['My_RA']
 cscDEC = csc10am['CSC_DEC']
-cscMyDEC = csc10am['SDSS_DEC']
+cscMyDEC = csc10am['My_DEC']
 
 """
 fig = plt.figure(figsize =(10, 10))
@@ -49,7 +49,7 @@ for i in range(np.size(cscRA)):
         #angular separation
         thetaRad = np.sin(cscMyDEC[i]*np.pi/180)* np.sin(cscDEC[i]*np.pi/180) + np.cos(cscMyDEC[i]*np.pi/180)*np.cos(cscDEC[i]*np.pi/180)*np.cos(np.absolute(cscMyRA[i]-cscRA[i])*np.pi/180) #returns answer in rad
         theta_arcsec = np.arccos(thetaRad) * 206265
-        if theta_arcsec < 600:
+        if theta_arcsec < 15:
             cscMyRAnew.append(cscMyRA[i])
             cscMyDECnew.append(cscMyDEC[i])
             cscRAnew.append(cscRA[i])
@@ -58,20 +58,32 @@ for i in range(np.size(cscRA)):
             count = count +1
         #print("d1 =",cscMyDEC[i], "d2 = ", cscDEC[i], "angSep=", theta_arcsec)       
     idx = num
-        
+
 print("Count =", count)
 
- # taking an input list
-uniqueNums = []
- # taking an counter
+#comment out 
+
+print("Writing file")
+with open(r'checksdsspics10arcsec.txt', 'w') as fp:
+    fp.write("Num\t\t\t\tSDSS_RA\t\t\t\tCSC_RA\t\t\tSDSS_DEC\t\t\tCSC_DEC\t\tAngular_Separation\n")
+    for i in range(count):
+        fp.write("%3d\t%12.6f\t%12.6f\t%12.6f\t%12.6f\t%12.6f\n" %( (i) ,(cscMyRAnew[i]), (cscRAnew[i]), (cscMyDECnew[i]), (cscDECnew[i]), (angSep[i]) ) )
+                 
+#comment out
+
+
+# taking an input list
+#uniqueNums = []
+# taking an counter
 sum = 0
  
 # traversing the array
+"""
 for item in matches:
     if item not in uniqueNums:
         sum += 1
         uniqueNums.append(item)
- 
+ """
 # printing the output
 print("No of unique items are:", sum)
 #categories = np.array(len(cscMyRAnew))
